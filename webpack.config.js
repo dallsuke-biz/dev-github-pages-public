@@ -5,9 +5,9 @@ module.exports = {
   mode: "development",
   entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "docs"),
     filename: "bundle.js",
-    clean: true, // distを毎回クリーンアップ
+    clean: true, // docsを毎回クリーンアップ
   },
   module: {
     rules: [
@@ -23,7 +23,7 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: "./dist",
+    static: "./docs",
     port: 3000,
     open: true,
   },
