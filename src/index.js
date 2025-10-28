@@ -1,9 +1,23 @@
 import "./style.css";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
-// HTML内の要素を取得
+const firebaseConfig = {
+	apiKey: process.env.firebaseConfig_apiKey,
+	authDomain: process.env.firebaseConfig_authDomain,
+	projectId: process.env.firebaseConfig_projectId,
+	storageBucket: process.env.firebaseConfig_storageBucket,
+	messagingSenderId: process.env.firebaseConfig_messagingSenderId,
+	appId: process.env.firebaseConfig_appId,
+	measurementId: process.env.firebaseConfig_measurementId,
+};
+const firebaseApp = initializeApp(firebaseConfig);
+const analytics = getAnalytics(firebaseApp);
+console.log(firebaseApp);
+
+
 const app = document.getElementById("app");
 
-// 要素を生成してDOMに追加
 const title = document.createElement("h1");
 title.textContent = "サーバーレスホームページへようこそ！";
 
