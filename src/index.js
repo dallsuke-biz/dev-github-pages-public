@@ -1,6 +1,7 @@
 import "./style.css";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: process.env.firebaseConfig_apiKey,
@@ -12,8 +13,10 @@ const firebaseConfig = {
 	measurementId: process.env.firebaseConfig_measurementId,
 };
 const firebaseApp = initializeApp(firebaseConfig);
+// console.log(firebaseApp);
 const analytics = getAnalytics(firebaseApp);
-console.log(firebaseApp);
+const provider = new GoogleAuthProvider();
+const auth = getAuth();
 
 
 const app = document.getElementById("app");
@@ -27,7 +30,28 @@ desc.textContent = "このページは Node.js + webpack で構築されてい�
 const button = document.createElement("button");
 button.textContent = "クリックしてメッセージを表示";
 button.addEventListener("click", () => {
-  alert("サーバーレスで動作中です ！");
+	// alert("サーバーレスで動作中です ！");
+	signInWithPopup(auth, provider)
+	.then((result) => {
+	  // This gives you a Google Access Token. You can use it to access the Google API.
+	  const credential = GoogleAuthProvider.credentialFromResult(result);
+	  const token = credential.accessToken;
+	  // The signed-in user info.
+	  const user = result.user;
+	  console.log(user);
+	  // IdP data available using getAdditionalUserInfo(result)
+	  // ...
+	}).catch((error) => {
+	  // Handle Errors here.
+	  const errorCode = error.code;
+	  const errorMessage = error.message;
+	  console.log(errorCode, errorMessage);
+	  // The email of the user's account used.
+	  const email = error.customData.email;
+	  // The AuthCredential type that was used.
+	  const credential = GoogleAuthProvider.credentialFromError(error);
+	  // ...
+	});
 });
 
 app.appendChild(title);
