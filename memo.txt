@@ -1,0 +1,5 @@
+# ローカル環境で実行する
+npm run start
+
+# デプロイ用コードを作成する
+npm run build
