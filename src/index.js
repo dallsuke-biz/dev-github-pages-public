@@ -70,6 +70,8 @@ class Firebase {
 	static _signedIn(user) {
 		console.log('サインイン中です。');
 		// Firebaseが発行する認証用のトークン（１時間）
+		// user.getIdToken(): 有効期限内なら同じIdTokenを取得する
+		// user.getIdToken(true): 強制的に新しいIdTokenを取得する
 		user.getIdToken().then(firebaseIdToken => {
 			console.log('firebaseIdToken: ', firebaseIdToken);
 		}).catch(error => {
